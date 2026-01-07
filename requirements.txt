@@ -1,0 +1,4 @@
+pymongo
+yagmail
+dnspython
+pandas
