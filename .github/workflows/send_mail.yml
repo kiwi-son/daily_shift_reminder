@@ -3,7 +3,7 @@ name: Daily Mail Scheduler
 on:
   schedule:
     # This is 10:00 PM IST (4:30 PM UTC)
-    - cron: '*/5 * * * *'
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 jobs:
