@@ -20,7 +20,6 @@ def no_cache(response):
 
 @app.route("/", methods=["GET"])
 def home():
-    session.clear()
     return render_template("index.html")
 
 @app.route("/login", methods=["POST"])
@@ -35,7 +34,6 @@ def login():
         'emp':int(emp),
         'pass':password
     })
-    #print(res)
     if res==None:
         flash("Invalid email or password", "danger")
         return redirect(url_for("home"))
@@ -43,9 +41,7 @@ def login():
     session["user"] = emp
     print(db_shift.list_collection_names())
     if not session.get("logged_in"):
-        return redirect(url_for("home"))
-    if db_shift.list_collection_names()!=[]:
-        return render_template("delete.html")
+        return redirect(url_for("home")
     
     return redirect(url_for("upload_page"))
 @app.route("/delete", methods=["POST"])
@@ -97,6 +93,7 @@ def logout():
     session.clear()  
     flash("Logged out successfully", "success")
     return redirect(url_for("home"))
+
 
 
 app.run(debug=True)
