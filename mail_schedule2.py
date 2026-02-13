@@ -7,7 +7,7 @@ EMAIL_ID = os.getenv("EMAIL_ID")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 utc_now = datetime.utcnow()
 ist_now = utc_now + timedelta(hours=5, minutes=30)
-dt = ist_now + timedelta(days=1)
+dt = ist_now
 def send_email(email, msg):
     sender = EMAIL_ID
     password = EMAIL_PASS  # Gmail App Password
@@ -23,14 +23,8 @@ def send_email(email, msg):
 for i in range(len(user_name)):
     print(shift[i])
     msg=""
-    if shift[i] in ["PH", "RH", "//", "L"]:
-        msg=f"""
-        Hi {user_name[i]}, 
-        Tomorrow  is a Holiday 🎉!!!
-        No office.
-
-        Enjoy your day!
-        """
+    if shift[i] in ["PH", "RH", "//", "L", "SG", "SS"]:
+        continue
     elif shift[i]==None:
         msg=f"""
         Hey, {user_name[i]},
@@ -46,6 +40,7 @@ for i in range(len(user_name)):
         """
 
     send_email(user_email[i], msg)
+
 
 
 
