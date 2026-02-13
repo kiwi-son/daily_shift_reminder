@@ -5,7 +5,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 utc_now = datetime.utcnow()
 dt = utc_now + timedelta(hours=5, minutes=30)
 
-tomorrow = (dt + timedelta(days=1)).replace(
+today = dt.replace(
     hour=0, minute=0, second=0, microsecond=0
 )
 client= MongoClient(MONGO_URI)
@@ -24,7 +24,7 @@ shift=[]
 
 for i in user_name:
     coll=shift_db[i]
-    res=coll.find_one({"date":tomorrow})
+    res=coll.find_one({"date":today})
     if res is not None:
         manpower.append(res.get('manpower'))
         shift.append(res.get('shift'))
@@ -32,13 +32,14 @@ for i in user_name:
         manpower.append(None)   
         shift.append(None)
     coll.delete_many({
-        "date":{"$lt" : tomorrow}
+        "date":{"$lt" : today}
     })
 
 
 
 
     
+
 
 
 
